@@ -27,13 +27,9 @@ mongoose
     console.log("Connected to MongoDB");
   });
 
-// ROUTE-REGISTER
+// ROUTES
 app.use("/register", routeRegister);
-
-// ROUTE-LOGIN
 app.use("/login", routeLogin);
-
-// ROUTE-CONTACT
 app.use("/contacts", routeContacts);
 
 // START SERVER

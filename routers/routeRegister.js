@@ -1,19 +1,14 @@
 // EXPRESS - MONGOOSE
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
-const app = express();
 // AUTH
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
+// MODELS
+const User = require("../models/userModel");
 
 // ROUTES
-app.post("/", async (req, res) => {
-  const validPassword = /^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{6,}$/;
-  let resultPassword = validPassword.test(req.body.password);
-
-  if (!resultPassword) {
+router.post("/", async (req, res) => {
+  if (req.body.password.length < 6 || !/\d/.test(req.body.password)) {
     return res.status(400).json({
       message: "Invalid data",
     });

@@ -7,11 +7,13 @@ const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+// MODELS
+const User = require("../models/userModel");
 // SECRET
 const secret = "5aJif0OZjepB63NRwyNSkk0czzttHKjXNQbEImrW";
 
 // ROUTES
-app.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });

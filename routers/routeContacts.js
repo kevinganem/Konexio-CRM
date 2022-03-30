@@ -7,6 +7,9 @@ const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+// MODELS
+const Contacts = require("../models/contactModel");
+const User = require("../models/userModel");
 // SECRET
 const secret = "5aJif0OZjepB63NRwyNSkk0czzttHKjXNQbEImrW";
 
@@ -31,9 +34,9 @@ function isConnected() {
 }
 
 // ROUTES
-app.get("/contacts", isConnected, async (req, res) => {});
-app.post("/contacts", isConnected, async (req, res) => {});
-app.put("/contacts", isConnected, async (req, res) => {});
-app.delete("/contacts", isConnected, async (req, res) => {});
+router.get("/", isConnected, async (req, res) => {});
+router.post("/", isConnected, async (req, res) => {});
+router.put("/", isConnected, async (req, res) => {});
+router.delete("/", isConnected, async (req, res) => {});
 
 module.exports = router;
