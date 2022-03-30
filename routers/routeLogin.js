@@ -1,12 +1,9 @@
 // EXPRESS - MONGOOSE
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
-const app = express();
 // AUTH
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 // MODELS
 const User = require("../models/userModel");
 // SECRET

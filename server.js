@@ -3,8 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 // AUTH
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 // ROUTERS
 const routeRegister = require("./routers/routeRegister");
@@ -31,6 +29,10 @@ mongoose
 app.use("/register", routeRegister);
 app.use("/login", routeLogin);
 app.use("/contacts", routeContacts);
+
+app.get("*", (_req, res) => {
+  res.status(404).send("Error 404");
+});
 
 // START SERVER
 app.listen(8000, () => {
