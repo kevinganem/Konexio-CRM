@@ -6,10 +6,10 @@ const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-// MODELS
-
-// SECRET
-const secret = "5aJif0OZjepB63NRwyNSkk0czzttHKjXNQbEImrW";
+// ROUTERS
+const routeRegister = require("./routers/routeRegister");
+const routeLogin = require("./routers/routeLogin");
+const routeContacts = require("./routers/routeContacts");
 
 // MIDDLEWARES
 app.use(express.json());
@@ -28,56 +28,13 @@ mongoose
   });
 
 // ROUTE-REGISTER
-app.post("/register", async (req, res) => {
-  const hashedPassword = await bcrypt.hash(req.body.password, 12);
-
-  console.log(hashedPassword);
-
-  try {
-    await User.create({
-      email: req.body.email,
-      password: hashedPassword,
-    });
-  } catch (err) {
-    return res.status(400).json({
-      message: "This account already exists",
-    });
-  }
-
-  res.status(201).json({
-    message: `User ${req.body.email} created`,
-  });
-});
+app.use("/register", routeRegister);
 
 // ROUTE-LOGIN
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+app.use("/login", routeLogin);
 
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    return res.status(400).json({
-      message: "Invalid email or password",
-    });
-  }
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    return res.status(400).json({
-      message: "Invalid email or password",
-    });
-  }
-
-  const token = jwt.sign({ id: user._id }, secret);
-
-  res.cookie("jwt", token, { httpOnly: true, secure: false });
-
-  res.json({
-    message: "Here is your cookie",
-  });
-});
 // ROUTE-CONTACT
+app.use("/contacts", routeContacts);
 
 // START SERVER
 app.listen(8000, () => {
